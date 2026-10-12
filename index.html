@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EDGE 소형 광고 시안 4종</title>
+    <style>
+      :root { font-family: Pretendard, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #17191c; }
+      * { box-sizing: border-box; }
+      button { font: inherit; }
+      body { margin: 0; min-height: 100vh; padding: 38px 24px; overflow-x: auto; background: radial-gradient(circle at 50% -8%, #fff, transparent 36%), linear-gradient(145deg, #f2f4f7, #dfe4ea); }
+      header { width: min(1680px, calc(100vw - 48px)); min-width: 1120px; margin: 0 auto 28px; }
+      header span { color: #737a84; font-size: 12px; font-weight: 800; letter-spacing: .1em; }
+      header h1 { margin: 8px 0 6px; font-size: 34px; letter-spacing: -.04em; }
+      header p { margin: 0; color: #707680; font-size: 14px; }
+      .variation-heading { width: min(1680px, calc(100vw - 48px)); min-width: 1120px; margin: 46px auto 18px; }
+      .variation-heading strong { display: block; font-size: 22px; letter-spacing: -.035em; }
+      .variation-heading span { display: block; margin-top: 6px; color: #737a84; font-size: 13px; }
+      .gallery { width: min(1680px, calc(100vw - 48px)); min-width: 1120px; margin: auto; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 22px; }
+      .concept { padding: 15px 15px 20px; border: 1px solid rgba(25,32,42,.09); border-radius: 26px; background: rgba(255,255,255,.72); box-shadow: 0 22px 54px rgba(36,43,54,.12); }
+      .meta { display: flex; justify-content: space-between; align-items: center; padding: 3px 5px 13px; }
+      .meta strong { font-size: 16px; }
+      .meta small { color: #8a9098; font-size: 11px; }
+      .phone { position: relative; width: 100%; aspect-ratio: 390/780; overflow: hidden; border: 8px solid #17191c; border-radius: 28px; background: #fff; box-shadow: 0 18px 34px rgba(20,26,34,.18); }
+      .article { width: 100%; height: auto; display: block; }
+
+      .edge-ad { position: absolute; z-index: 3; top: 350px; left: 8.5%; width: 166px; height: 184px; zoom: .82; transition: opacity 420ms ease, transform 560ms cubic-bezier(.2,.8,.2,1), filter 420ms ease, clip-path 560ms cubic-bezier(.2,.8,.2,1); }
+      .banner-tools { position: absolute; z-index: 5; top: 266px; left: 8.5%; width: 134px; height: 22px; display: flex; align-items: center; justify-content: flex-start; gap: 0; }
+      .close { position: static; order: 1; flex: 0 0 24px; width: 24px; height: 22px; display: grid; place-items: center; padding: 0 0 1px 1px; border: 1px solid rgba(255,255,255,.42); border-right-color: rgba(255,255,255,.18); border-radius: 6px 0 0 0; color: #fff; background: rgba(13,15,18,.78); box-shadow: none; cursor: pointer; }
+      .label { position: static; order: 2; flex: 0 0 auto; height: 22px; display: flex; align-items: center; padding: 0 8px 0 7px; border: 1px solid rgba(255,255,255,.42); border-left: 0; border-radius: 0 6px 0 0; color: #fff; background: rgba(13,15,18,.78); font-size: 11px; font-weight: 800; letter-spacing: .06em; box-shadow: none; }
+      .ai-mark { position: absolute; top: 27px; right: 0; width: 37px; aspect-ratio: 102/54; display: block; margin: 0; opacity: 0; filter: drop-shadow(0 2px 5px rgba(0,0,0,.24)); transition: opacity 420ms ease, transform 560ms cubic-bezier(.2,.8,.2,1), filter 420ms ease; pointer-events: none; }
+      .ai-mark.is-ready { opacity: 1; }
+      .ai-mark.initial-full { animation: ai-rise-in 650ms cubic-bezier(.18,.9,.24,1) 350ms both; }
+      .ai-mark.initial-caption { animation: ai-flip-in 680ms cubic-bezier(.2,.85,.25,1) 420ms both; }
+      .ai-mark.initial-stack { animation: ai-stack-in 760ms cubic-bezier(.16,1,.3,1) 430ms both; }
+      .ai-mark.initial-cinema { animation: ai-cinema-in 720ms cubic-bezier(.16,1,.3,1) 430ms both; }
+      .ai-mark.is-cycle-hidden { opacity: 0; }
+      .ai-mark.motion-full.is-cycle-hidden { transform: translateY(22px) scale(.86); filter: blur(5px); }
+      .ai-mark.motion-caption.is-cycle-hidden { transform: translateX(-28px); filter: blur(2px); }
+      .ai-mark.motion-stack.is-cycle-hidden { transform: translate(-11.5px,11.5px) rotate(-12deg) scale(.9); filter: blur(2px); transition: transform 420ms cubic-bezier(.4,0,.2,1), opacity 80ms ease 340ms, filter 300ms ease 80ms; }
+      .ai-mark.motion-cinema.is-cycle-hidden { transform: none; filter: drop-shadow(0 2px 5px rgba(0,0,0,.24)); }
+      .ai-mark img { width: 100%; height: 100%; display: block; object-fit: contain; object-position: center; transform: none; animation: none; }
+      .focus-tools { justify-content: flex-start; }
+      .full-tools .close { border-radius: 6px 0 0 0; box-shadow: none; }
+      .full-tools .label { border-radius: 0 6px 0 0; box-shadow: none; }
+      .stack-tools .ai-mark { transform-origin: -97px 200px; }
+      .cinema-tools .ai-mark { top: 28px; right: 6px; }
+      .edge-ad.is-closing { pointer-events: none; animation: close-out 320ms ease forwards !important; }
+      .edge-ad.is-cycle-hidden { pointer-events: none; }
+      .full-card.is-cycle-hidden { opacity: 0; transform: translateY(22px) scale(.86); filter: blur(5px); }
+      .caption-card.is-cycle-hidden { opacity: 0; transform: translateX(-28px); filter: blur(2px); }
+      .line-card.is-cycle-hidden { opacity: 0; transform: translate(-14px,14px) rotate(-12deg) scale(.9); filter: blur(2px); transition: transform 420ms cubic-bezier(.4,0,.2,1), opacity 300ms ease 100ms, filter 300ms ease 80ms; }
+      .cinema-card.is-cycle-hidden { opacity: 0; transform: none; filter: none; }
+
+      .full-card { overflow: hidden; border: 2px solid #fff; border-radius: 83px 83px 16px 16px; background: #17191c; box-shadow: 0 13px 30px rgba(0,0,0,.28); transform-origin: center bottom; animation: rise-in 650ms cubic-bezier(.18,.9,.24,1) 350ms both; }
+      .full-card img { width: 100%; height: 100%; object-fit: cover; object-position: 32% center; animation: drift 7s ease-in-out 1s infinite alternate; }
+      .full-card .shade { position: absolute; inset: 0; background: linear-gradient(0deg, rgba(7,9,12,.92), rgba(7,9,12,.08) 62%); }
+      .full-copy { position: absolute; z-index: 4; right: 10px; bottom: 10px; left: 10px; color: #fff; }
+      .full-copy strong { display: -webkit-box; overflow: hidden; margin-bottom: 7px; font-size: 14px; line-height: 150%; letter-spacing: -.025em; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
+      .full-copy button { width: 100%; height: 30px; border: 0; border-radius: 7px; color: #17191c; background: rgba(255,255,255,.95); font-size: 14px; font-weight: 800; cursor: pointer; }
+
+      .caption-card { background: transparent; transform-origin: center; animation: flip-in 680ms cubic-bezier(.2,.85,.25,1) 420ms both; }
+      .caption-card .photo { position: absolute; top: 0; left: 8px; width: 150px; height: 150px; overflow: hidden; border: 3px solid #fff; border-radius: 50%; background: #25282d; box-shadow: 0 12px 28px rgba(0,0,0,.27); }
+      .caption-card img { width: 100%; height: 100%; object-fit: cover; object-position: 32% 34%; transition: transform 350ms ease; }
+      .caption-card:hover img { transform: scale(1.05); }
+      .caption-card .close { background: rgba(12,14,17,.72); }
+      .caption-copy { position: absolute; right: 0; bottom: 0; left: 0; height: 42px; display: grid; grid-template-columns: 1fr 26px; align-items: center; gap: 7px; padding: 6px 10px 6px 16px; border: 2px solid #fff; border-radius: 999px; color: #fff; background: #17191c; box-shadow: 0 9px 22px rgba(0,0,0,.25); transition: opacity 320ms ease 180ms, transform 420ms cubic-bezier(.2,.8,.2,1) 180ms; }
+      .caption-card.is-cta-waiting .caption-copy { opacity: 0; transform: translateX(-20px); transition-delay: 0ms; }
+      .caption-card.is-cycle-hidden .caption-copy { opacity: 1; transform: none; transition-delay: 0ms; }
+      .caption-copy span { overflow: hidden; font-size: 14px; font-weight: 750; line-height: 1.25; white-space: nowrap; text-overflow: ellipsis; }
+      .caption-copy button { width: 26px; height: 26px; border: 0; border-radius: 50%; color: #fff; background: #17191c; font-size: 14px; cursor: pointer; transition: transform 180ms ease; }
+      .caption-copy button:hover { transform: translateX(2px); }
+
+      .line-card { width: 166px; height: 184px; transform-origin: left bottom; filter: drop-shadow(0 12px 18px rgba(0,0,0,.22)); animation: stack-in 760ms cubic-bezier(.16,1,.3,1) 430ms both; }
+      .line-card::before { content: ""; position: absolute; z-index: 1; top: 18px; left: 12px; width: 142px; height: 146px; border: 1px solid rgba(255,255,255,.8); border-radius: 14px; background: rgba(255,255,255,.82); box-shadow: 0 8px 20px rgba(0,0,0,.15); transform: rotate(5deg); pointer-events: none; }
+      .line-card .image-wrap { position: absolute; z-index: 2; top: 9px; left: 9px; width: 144px; height: 150px; overflow: hidden; border: 2px solid #fff; border-radius: 14px; background: #17191c; box-shadow: 0 10px 24px rgba(0,0,0,.24); transform: rotate(-3deg); }
+      .line-card img { width: 100%; height: 100%; object-fit: cover; object-position: 32% center; }
+      .line-footer { position: absolute; z-index: 4; right: 7px; bottom: 0; left: 7px; height: 38px; display: flex; align-items: center; justify-content: space-between; padding: 0 5px 0 12px; border: 1px solid rgba(20,23,28,.1); border-radius: 10px; color: #17191c; background: rgba(255,255,255,.96); box-shadow: 0 8px 20px rgba(0,0,0,.2); }
+      .line-footer span { font-size: 14px; font-weight: 750; }
+      .line-footer button { width: 28px; height: 28px; border: 0; border-radius: 7px; color: #fff; background: #17191c; font-weight: 800; cursor: pointer; }
+
+      .cinema-card { overflow: hidden; border: 1px solid rgba(255,255,255,.9); border-radius: 6px; background: #111419; box-shadow: 0 14px 32px rgba(0,0,0,.3); transform-origin: left top; animation: cinema-in 720ms cubic-bezier(.16,1,.3,1) 430ms both; }
+      .cinema-card::after { content: ""; position: absolute; inset: 0; border: 5px solid rgba(12,15,19,.22); pointer-events: none; }
+      .cinema-card img { width: 100%; height: 100%; display: block; object-fit: cover; object-position: 32% center; }
+      .edge-ad img.figma-source { object-position: center center; }
+      .cinema-shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(6,8,11,.18), transparent 38%), linear-gradient(0deg, rgba(6,8,11,.9), transparent 52%); }
+      .cinema-copy { position: absolute; z-index: 4; right: 9px; bottom: 9px; left: 9px; display: flex; align-items: center; justify-content: space-between; gap: 7px; color: #fff; }
+      .cinema-copy span { font-size: 14px; font-weight: 750; line-height: 1.3; text-shadow: 0 1px 4px rgba(0,0,0,.55); }
+      .cinema-copy button { flex: 0 0 auto; height: 28px; padding: 0 10px; border: 1px solid rgba(255,255,255,.48); border-radius: 4px; color: #fff; background: rgba(16,19,23,.72); backdrop-filter: blur(8px); font-size: 11px; font-weight: 800; cursor: pointer; transition: background 180ms ease; }
+      .cinema-copy button:hover { background: rgba(255,255,255,.2); }
+
+      @keyframes rise-in { from { opacity: 0; transform: translateY(18px) scale(.92); filter: blur(5px); } to { opacity: 1; transform: none; filter: blur(0); } }
+      @keyframes flip-in { from { opacity: 0; transform: perspective(500px) rotateY(-18deg) translateX(-18px); } to { opacity: 1; transform: perspective(500px) rotateY(0) translateX(0); } }
+      @keyframes stack-in { from { opacity: 0; transform: translate(-14px,14px) rotate(-12deg) scale(.9); } to { opacity: 1; transform: translate(0) rotate(0) scale(1); } }
+      @keyframes ai-rise-in { from { opacity: 0; transform: translateY(18px) scale(.92); filter: blur(5px); } to { opacity: 1; transform: none; filter: drop-shadow(0 2px 5px rgba(0,0,0,.24)); } }
+      @keyframes ai-flip-in { from { opacity: 0; transform: perspective(500px) rotateY(-18deg) translateX(-18px); } to { opacity: 1; transform: perspective(500px) rotateY(0) translateX(0); } }
+      @keyframes ai-stack-in { from { opacity: 0; transform: translate(-11.5px,11.5px) rotate(-12deg) scale(.9); } to { opacity: 1; transform: translate(0) rotate(0) scale(1); } }
+      @keyframes ai-cinema-in { from { opacity: 0; transform: scale(.94); } to { opacity: 1; transform: scale(1); } }
+      @keyframes drift { to { transform: scale(1.06) translate(-1%, -.5%); } }
+      @keyframes border-pulse { 50% { box-shadow: 0 0 0 3px rgba(255,255,255,.12); } }
+      @keyframes cinema-in { from { opacity: 0; transform: scale(.04); filter: brightness(1.8) blur(2px); box-shadow: 0 0 0 rgba(0,0,0,0); } to { opacity: 1; transform: scale(1); filter: none; box-shadow: 0 14px 32px rgba(0,0,0,.3); } }
+      @keyframes close-out { to { opacity: 0; transform: translate(-8px,-8px) scale(.3); filter: blur(4px); } }
+
+      @media (max-width: 1180px) { body { padding: 24px 14px; } header,.variation-heading,.gallery { width: 1120px; } }
+      @media (prefers-reduced-motion: reduce) { *,*::before,*::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; } }
+    </style>
+  </head>
+  <body>
+    <header>
+      <span>EDGE AD · 약 136 × 151</span>
+      <h1>모바일 이미지 좌측 상단 시안 4종</h1>
+      <p>기존 166 × 184px 시안을 약 82% 크기로 축소해 비교할 수 있습니다.</p>
+    </header>
+
+    <main class="gallery">
+      <section class="concept">
+        <div class="meta"><strong>01. 아치형 카드</strong><small>약 136 × 151</small></div>
+        <div class="phone">
+          <img class="article" src="./article-background.png" alt="기사 배경" />
+          <div class="banner-tools full-tools"><span class="ai-mark"><img src="./ai-mark-562-5177.gif" alt="AI" /></span><span class="label">AD</span><button class="close" data-close="ad1" type="button" aria-label="닫기">×</button></div>
+          <article class="edge-ad full-card" id="ad1">
+            <img src="./ad-image.png" alt="광고 이미지" />
+            <div class="shade"></div>
+            <div class="full-copy"><strong>[단독특가] AW-204 에어웜 숏패딩</strong><button type="button">자세히 보기 →</button></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="concept">
+        <div class="meta"><strong>02. 포커스 버블</strong><small>약 136 × 151</small></div>
+        <div class="phone">
+          <img class="article" src="./article-background.png" alt="기사 배경" />
+          <div class="banner-tools focus-tools"><span class="ai-mark"><img src="./ai-mark-562-5177.gif" alt="AI" /></span><span class="label">AD</span><button class="close" data-close="ad2" type="button" aria-label="닫기">×</button></div>
+          <article class="edge-ad caption-card" id="ad2">
+            <div class="photo"><img src="./ad-image.png" alt="광고 이미지" /></div>
+            <div class="caption-copy"><span>자세히 보기</span><button type="button">→</button></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="concept">
+        <div class="meta"><strong>03. 틸트 스택 카드</strong><small>약 136 × 151</small></div>
+        <div class="phone">
+          <img class="article" src="./article-background.png" alt="기사 배경" />
+          <div class="banner-tools stack-tools"><span class="ai-mark"><img src="./ai-mark-562-5177.gif" alt="AI" /></span><span class="label">AD</span><button class="close" data-close="ad3" type="button" aria-label="닫기">×</button></div>
+          <article class="edge-ad line-card" id="ad3">
+            <div class="image-wrap"><img src="./ad-image.png" alt="광고 이미지" /></div>
+            <div class="line-footer"><span>자세히 보기</span><button type="button">→</button></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="concept">
+        <div class="meta"><strong>04. 시네마 글라스</strong><small>약 136 × 151</small></div>
+        <div class="phone">
+          <img class="article" src="./article-background.png" alt="기사 배경" />
+          <div class="banner-tools cinema-tools"><span class="ai-mark"><img src="./ai-mark-562-5177.gif" alt="AI" /></span><span class="label">AD</span><button class="close" data-close="ad4" type="button" aria-label="닫기">×</button></div>
+          <article class="edge-ad cinema-card" id="ad4">
+            <img src="./ad-image.png" alt="광고 이미지" />
+            <div class="cinema-shade"></div>
+            <div class="cinema-copy"><span>AW-204 에어웜 숏패딩</span><button type="button">VIEW →</button></div>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <div class="variation-heading">
+      <strong>Figma 이미지 적용 시안</strong>
+      <span>node 50:1522의 이미지를 동일한 4가지 형태에 적용했습니다.</span>
+    </div>
+
+    <main class="gallery">
+      <section class="concept">
+        <div class="meta"><strong>01. 아치형 카드</strong><small>Figma 이미지</small></div>
+        <div class="phone">
+          <img class="article" src="./article-background.png" alt="기사 배경" />
+          <div class="banner-tools full-tools"><span class="ai-mark"><img src="./ai-mark-562-5177.gif" alt="AI" /></span><span class="label">AD</span><button class="close" data-close="ad5" type="button" aria-label="닫기">×</button></div>
+          <article class="edge-ad full-card" id="ad5">
+            <img class="figma-source" src="./figma-image-50-1522.png" alt="AI 인물 이미지" />
+            <div class="shade"></div>
+            <div class="full-copy"><strong>[신상 20%] SR-110 소프트 리브 집업</strong><button type="button">자세히 보기 →</button></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="concept">
+        <div class="meta"><strong>02. 포커스 버블</strong><small>Figma 이미지</small></div>
+        <div class="phone">
+          <img class="article" src="./article-background.png" alt="기사 배경" />
+          <div class="banner-tools focus-tools"><span class="ai-mark"><img src="./ai-mark-562-5177.gif" alt="AI" /></span><span class="label">AD</span><button class="close" data-close="ad6" type="button" aria-label="닫기">×</button></div>
+          <article class="edge-ad caption-card" id="ad6">
+            <div class="photo"><img class="figma-source" src="./figma-image-50-1522.png" alt="AI 인물 이미지" /></div>
+            <div class="caption-copy"><span>자세히 보기</span><button type="button">→</button></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="concept">
+        <div class="meta"><strong>03. 틸트 스택 카드</strong><small>Figma 이미지</small></div>
+        <div class="phone">
+          <img class="article" src="./article-background.png" alt="기사 배경" />
+          <div class="banner-tools stack-tools"><span class="ai-mark"><img src="./ai-mark-562-5177.gif" alt="AI" /></span><span class="label">AD</span><button class="close" data-close="ad7" type="button" aria-label="닫기">×</button></div>
+          <article class="edge-ad line-card" id="ad7">
+            <div class="image-wrap"><img class="figma-source" src="./figma-image-50-1522.png" alt="AI 인물 이미지" /></div>
+            <div class="line-footer"><span>자세히 보기</span><button type="button">→</button></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="concept">
+        <div class="meta"><strong>04. 시네마 글라스</strong><small>Figma 이미지</small></div>
+        <div class="phone">
+          <img class="article" src="./article-background.png" alt="기사 배경" />
+          <div class="banner-tools cinema-tools"><span class="ai-mark"><img src="./ai-mark-562-5177.gif" alt="AI" /></span><span class="label">AD</span><button class="close" data-close="ad8" type="button" aria-label="닫기">×</button></div>
+          <article class="edge-ad cinema-card" id="ad8">
+            <img class="figma-source" src="./figma-image-50-1522.png" alt="AI 인물 이미지" />
+            <div class="cinema-shade"></div>
+            <div class="cinema-copy"><span>SR-110 소프트 리브 집업</span><button type="button">VIEW →</button></div>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      const ads = [...document.querySelectorAll('.edge-ad')];
+
+      ads.forEach((ad) => {
+        const aiMark = ad.parentElement.querySelector('.ai-mark');
+        const initialClass = ad.classList.contains('full-card')
+          ? 'initial-full'
+          : ad.classList.contains('caption-card')
+            ? 'initial-caption'
+            : ad.classList.contains('line-card')
+              ? 'initial-stack'
+              : 'initial-cinema';
+        aiMark?.classList.add(initialClass);
+        aiMark?.addEventListener('animationend', () => {
+          aiMark.classList.remove(initialClass);
+          aiMark.classList.add('is-ready');
+        }, { once: true });
+      });
+
+      document.querySelectorAll('.caption-card').forEach((card) => {
+        card.classList.add('is-cta-waiting');
+        setTimeout(() => card.classList.remove('is-cta-waiting'), 720);
+      });
+
+      function hideAndReturn(target, hiddenTime = 1250) {
+        const aiMark = target.parentElement.querySelector('.ai-mark');
+        const motionClass = target.classList.contains('full-card')
+          ? 'motion-full'
+          : target.classList.contains('caption-card')
+            ? 'motion-caption'
+            : target.classList.contains('line-card')
+              ? 'motion-stack'
+              : 'motion-cinema';
+        target.style.animation = 'none';
+        target.classList.remove('is-closing');
+        target.classList.add('is-cycle-hidden');
+        aiMark?.classList.add('is-cycle-hidden', motionClass);
+        setTimeout(() => {
+          target.classList.remove('is-cycle-hidden');
+          aiMark?.classList.remove('is-cycle-hidden', motionClass);
+        }, hiddenTime);
+      }
+
+      document.querySelectorAll('[data-close]').forEach((button) => {
+        button.addEventListener('click', () => {
+          const target = document.getElementById(button.dataset.close);
+          hideAndReturn(target);
+        });
+      });
+
+      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        const cycles = [
+          { start: 11000, hidden: 1150, every: 13000 },
+          { start: 11000, hidden: 850, every: 13000 },
+          { start: 11000, hidden: 1920, every: 13000 },
+          { start: 11000, hidden: 700, every: 13000 }
+        ];
+
+        ads.forEach((ad, index) => {
+          const cycle = cycles[index % cycles.length];
+          setTimeout(() => {
+            hideAndReturn(ad, cycle.hidden);
+            setInterval(() => hideAndReturn(ad, cycle.hidden), cycle.every);
+          }, cycle.start + Math.floor(index / cycles.length) * 700);
+        });
+      }
+    </script>
+  </body>
+</html>
