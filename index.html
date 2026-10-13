@@ -51,7 +51,7 @@
       .ai-mark.motion-cinema.is-cycle-hidden { transform: translateY(-12px) scaleY(.82); filter: blur(2px); }
       .ai-mark.motion-scan.is-cycle-hidden { transform: translateX(-18px); filter: blur(2px); }
       .ai-mark img { width: 100%; height: 100%; display: block; object-fit: contain; object-position: center; transform: none; animation: none; }
-      .focus-tools { justify-content: flex-start; }
+      .focus-tools { width: 150px; justify-content: flex-start; }
       .scan-tools .ai-mark { top: 27px; right: -2px; }
       .focus-tools .ai-mark { top: 29px; right: 6px; }
       .full-tools .close { border-radius: 6px 0 0 0; box-shadow: none; }
@@ -75,7 +75,8 @@
       .full-copy strong { display: -webkit-box; overflow: hidden; font-size: 14px; line-height: 150%; letter-spacing: -.025em; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
       .full-copy button { width: 100%; height: 30px; border: 0; border-radius: 7px; color: #17191c; background: rgba(255,255,255,.95); font-size: 14px; font-weight: 800; cursor: pointer; }
 
-      .caption-card { overflow: hidden; border: 4px solid rgba(255,255,255,.96); border-radius: 4px; background: transparent; box-shadow: 0 12px 28px rgba(0,0,0,.27); transform-origin: center; animation: focus-lock-in 720ms cubic-bezier(.16,1,.3,1) 420ms both; }
+      .caption-card { width: 183px; height: 183px; overflow: hidden; border: 0; border-radius: 4px; background: transparent; box-shadow: 0 12px 28px rgba(0,0,0,.27); transform-origin: center; animation: focus-lock-in 720ms cubic-bezier(.16,1,.3,1) 420ms both; }
+      .caption-card::before { content: ""; position: absolute; z-index: 5; inset: 0; border: 4px solid rgba(255,255,255,.96); border-radius: 4px; pointer-events: none; }
       .caption-card .photo { position: absolute; inset: 0; overflow: hidden; background: transparent; }
       .caption-card img { width: 100%; height: 100%; object-fit: cover; object-position: 32% 34%; animation: focus-breathe 5s ease-out 1.2s both; transition: transform 420ms ease, filter 420ms ease; }
       .caption-card:hover img { transform: scale(1.05); }
@@ -172,7 +173,7 @@
       </section>
 
       <section class="concept">
-        <div class="meta"><strong>02. 포커스 프레임</strong><small>약 136 × 151</small></div>
+        <div class="meta"><strong>02. 포커스 프레임</strong><small>화면 표시 150 × 150</small></div>
         <div class="phone">
           <img class="article" src="./article-background.png" alt="기사 배경" />
           <div class="banner-tools focus-tools"><span class="ai-mark"><img src="./ai-mark-562-5177.gif" alt="AI" /></span><span class="label">AD</span><button class="close" data-close="ad2" type="button" aria-label="닫기">×</button></div>
@@ -218,7 +219,7 @@
       </section>
 
       <section class="concept">
-        <div class="meta"><strong>02. 포커스 프레임</strong><small>Figma 이미지</small></div>
+        <div class="meta"><strong>02. 포커스 프레임</strong><small>Figma 이미지 · 화면 표시 150 × 150</small></div>
         <div class="phone">
           <img class="article" src="./article-background.png" alt="기사 배경" />
           <div class="banner-tools focus-tools"><span class="ai-mark"><img src="./ai-mark-562-5177.gif" alt="AI" /></span><span class="label">AD</span><button class="close" data-close="ad6" type="button" aria-label="닫기">×</button></div>
