@@ -14,11 +14,14 @@
       header h1 { margin: 8px 0 6px; font-size: 34px; letter-spacing: -.04em; }
       header p { margin: 0; color: #707680; font-size: 14px; }
       .preview-settings { display: flex; align-items: center; gap: 10px; margin-top: 16px; }
-      .product-toggle { height: 36px; display: inline-flex; align-items: center; gap: 8px; padding: 0 14px; border: 1px solid rgba(23,25,28,.14); border-radius: 8px; color: #30343a; background: rgba(255,255,255,.82); box-shadow: 0 5px 14px rgba(31,38,48,.08); font-size: 13px; font-weight: 700; cursor: pointer; }
+      .product-toggle,.open-focus { height: 36px; display: inline-flex; align-items: center; gap: 8px; padding: 0 14px; border: 1px solid rgba(23,25,28,.14); border-radius: 8px; color: #30343a; background: rgba(255,255,255,.82); box-shadow: 0 5px 14px rgba(31,38,48,.08); font-size: 13px; font-weight: 700; text-decoration: none; cursor: pointer; }
       .product-toggle::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: #3159ff; box-shadow: 0 0 0 3px rgba(49,89,255,.12); }
       .product-toggle[aria-pressed="false"]::before { background: #a5abb4; box-shadow: 0 0 0 3px rgba(94,101,112,.1); }
       .scan-copy,.caption-copy,.line-footer { transition: opacity 220ms ease, transform 260ms ease, visibility 220ms; }
       body.product-name-hidden .scan-copy,body.product-name-hidden .caption-copy,body.product-name-hidden .line-footer { visibility: hidden !important; opacity: 0 !important; transform: translateY(8px) !important; pointer-events: none; }
+      body.focus-only header,body.focus-only .gallery { width: 830px; min-width: 830px; }
+      body.focus-only .gallery { grid-template-columns: repeat(2,minmax(0,1fr)); }
+      body.focus-only .gallery .concept:not(.focus-item) { display: none; }
       .variation-heading { width: min(1680px, calc(100vw - 48px)); min-width: 1120px; margin: 46px auto 18px; }
       .variation-heading strong { display: block; font-size: 22px; letter-spacing: -.035em; }
       .variation-heading span { display: block; margin-top: 6px; color: #737a84; font-size: 13px; }
@@ -34,7 +37,7 @@
       .banner-tools { position: absolute; z-index: 5; top: 266px; left: 8.5%; width: 134px; height: 22px; display: flex; align-items: center; justify-content: flex-start; gap: 0; }
       .close { position: static; order: 1; flex: 0 0 24px; width: 24px; height: 22px; display: grid; place-items: center; padding: 0 0 1px 1px; border: 1px solid rgba(255,255,255,.42); border-right-color: rgba(255,255,255,.18); border-radius: 6px 0 0 0; color: #fff; background: rgba(13,15,18,.78); box-shadow: none; cursor: pointer; }
       .label { position: static; order: 2; flex: 0 0 auto; height: 22px; display: flex; align-items: center; padding: 0 8px 0 7px; border: 1px solid rgba(255,255,255,.42); border-left: 0; border-radius: 0 6px 0 0; color: #fff; background: rgba(13,15,18,.78); font-size: 11px; font-weight: 800; letter-spacing: .06em; box-shadow: none; }
-      .ai-mark { position: absolute; top: 0; right: 0; width: 37px; aspect-ratio: 102/54; display: block; margin: 0; opacity: 0; filter: drop-shadow(0 2px 5px rgba(0,0,0,.24)); transition: opacity 420ms ease, transform 560ms cubic-bezier(.2,.8,.2,1), filter 420ms ease; pointer-events: none; }
+      .ai-mark { position: absolute; top: 27px; right: 2px; width: 28px; aspect-ratio: 102/54; display: block; margin: 0; opacity: 0; filter: drop-shadow(0 2px 5px rgba(0,0,0,.24)); transition: opacity 420ms ease, transform 560ms cubic-bezier(.2,.8,.2,1), filter 420ms ease; pointer-events: none; }
       .ai-mark.is-ready { opacity: 1; }
       .ai-mark.initial-full { animation: ai-rise-in 650ms cubic-bezier(.18,.9,.24,1) 350ms both; }
       .ai-mark.initial-caption { animation: ai-focus-in 720ms cubic-bezier(.16,1,.3,1) 420ms both; }
@@ -49,9 +52,11 @@
       .ai-mark.motion-scan.is-cycle-hidden { transform: translateX(-18px); filter: blur(2px); }
       .ai-mark img { width: 100%; height: 100%; display: block; object-fit: contain; object-position: center; transform: none; animation: none; }
       .focus-tools { justify-content: flex-start; }
+      .scan-tools .ai-mark { top: 27px; right: -2px; }
+      .focus-tools .ai-mark { top: 29px; right: 6px; }
       .full-tools .close { border-radius: 6px 0 0 0; box-shadow: none; }
       .full-tools .label { border-radius: 0 6px 0 0; box-shadow: none; }
-      .stack-tools .ai-mark { top: 0; right: 0; left: auto; transform-origin: -97px 200px; }
+      .stack-tools .ai-mark { top: 31px; right: 10px; left: auto; transform-origin: -97px 200px; }
       .edge-ad.is-closing { pointer-events: none; animation: close-out 320ms ease forwards !important; }
       .edge-ad.is-cycle-hidden { pointer-events: none; }
       .full-card.is-cycle-hidden { opacity: 0; transform: translateY(22px) scale(.86); filter: blur(5px); }
@@ -147,6 +152,7 @@
       <p>기존 166 × 184px 시안을 약 82% 크기로 축소해 비교할 수 있습니다.</p>
       <div class="preview-settings">
         <button class="product-toggle" type="button" aria-pressed="true">상품명 표시 중</button>
+        <a class="open-focus" href="?view=focus" target="_blank" rel="noopener">2번만 새 창에서 보기 ↗</a>
       </div>
     </header>
 
@@ -238,6 +244,20 @@
     </main>
 
     <script>
+      const focusOnly = new URLSearchParams(location.search).get('view') === 'focus';
+      if (focusOnly) {
+        document.body.classList.add('focus-only');
+        document.querySelector('h1').textContent = '02. 포커스 프레임';
+        document.querySelector('header p').textContent = '포커스 프레임의 이미지별 적용 화면입니다.';
+        document.querySelector('.open-focus')?.remove();
+        const focusGalleries = [...document.querySelectorAll('.gallery')];
+        const focusItems = focusGalleries.map((gallery) => gallery.querySelector('.concept:nth-child(2)'));
+        focusItems.forEach((item) => item?.classList.add('focus-item'));
+        if (focusGalleries[0] && focusItems[1]) focusGalleries[0].append(focusItems[1]);
+        document.querySelector('.variation-heading')?.remove();
+        focusGalleries[1]?.remove();
+      }
+
       const productToggle = document.querySelector('.product-toggle');
       productToggle?.addEventListener('click', () => {
         const isVisible = productToggle.getAttribute('aria-pressed') === 'true';
