@@ -295,6 +295,7 @@
         const aiMark = target.parentElement.querySelector('.ai-mark');
         const scanGhost = target.classList.contains('scan-card') ? target.nextElementSibling : null;
         const focusImage = target.classList.contains('caption-card') ? target.querySelector('img') : null;
+        const isFocusCard = target.classList.contains('caption-card');
         const motionClass = target.classList.contains('scan-card')
           ? 'motion-scan'
           : target.classList.contains('full-card')
@@ -307,11 +308,20 @@
         target.style.animation = 'none';
         if (scanGhost?.classList.contains('scan-ghost')) scanGhost.style.animation = 'none';
         if (focusImage) focusImage.style.animation = 'none';
+        if (isFocusCard && aiMark) aiMark.style.animation = 'none';
         target.classList.remove('is-closing');
         target.classList.add('is-cycle-hidden');
         scanGhost?.classList.add('is-cycle-hidden');
         aiMark?.classList.add('is-cycle-hidden', motionClass);
         setTimeout(() => {
+          if (isFocusCard) {
+            void target.offsetWidth;
+            target.style.animation = 'focus-lock-in 720ms cubic-bezier(.16,1,.3,1) both';
+            if (aiMark) {
+              void aiMark.offsetWidth;
+              aiMark.style.animation = 'ai-focus-in 720ms cubic-bezier(.16,1,.3,1) both';
+            }
+          }
           target.classList.remove('is-cycle-hidden');
           scanGhost?.classList.remove('is-cycle-hidden');
           aiMark?.classList.remove('is-cycle-hidden', motionClass);
@@ -331,9 +341,9 @@
 
       if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
         const cycles = [
-          { start: 11000, hidden: 1150, every: 13000 },
-          { start: 11000, hidden: 850, every: 13000 },
-          { start: 11000, hidden: 1920, every: 13000 }
+          { start: 6000, hidden: 1150, every: 7200 },
+          { start: 6000, hidden: 900, every: 7200 },
+          { start: 6000, hidden: 1920, every: 7200 }
         ];
 
         ads.forEach((ad, index) => {
